@@ -17,9 +17,9 @@ NAME = sid_demo
 
 CFLAGS = -I../.. \
     -I. \
-    @${PROJECT_LOC}/${ConfigName}/syscfg/ti_ble_app_config.opt \
-    @${PROJECT_LOC}/${ConfigName}/syscfg/ti_build_config.opt \
-    @${PROJECT_LOC}/${ConfigName}/syscfg/ti_sidewalk.opt \
+    @${CURDIR}/syscfg/ti_ble_app_config.opt \
+    @${CURDIR}/syscfg/ti_build_config.opt \
+    @${CURDIR}/syscfg/ti_sidewalk.opt \
     "@$(COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR)/source/ti/ble5stack/config/build_components.opt" \
     "@$(COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR)/source/ti/ble5stack/config/factory_config.opt" \
     -DUNIFIED_ASL_SUPPORT=1 \
@@ -257,7 +257,7 @@ syscfg: ../../freertos/sid_demo.syscfg
 define C_RULE
 $(basename $(notdir $(1))).obj: $(1) $(SYSCFG_H_FILES)
 	@ echo Building $$@
-	@ $(CC) $(CFLAGS) $$< -c -o $$@
+	@ $(CC) $(CFLAGS) "$$<" -c -o $$@
 endef
 
 $(foreach c_file,$(SYSCFG_C_FILES),$(eval $(call C_RULE,$(c_file))))
