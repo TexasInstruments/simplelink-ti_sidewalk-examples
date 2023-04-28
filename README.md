@@ -37,6 +37,15 @@ By default, TICLANG and GCC toolchains are enabled.  If a toolchain is unnecessa
 
 Edit **imports.make** and update all of the above tool location variables to reflect the paths on your build system.
 
+## Amazon Web Services (AWS) Account and Sample WebApp Setup
+To test the examples, you need to follow the instructions outlined in the following Github page: [Amazon Sidewalk Sample IoT App](https://github.com/TexasInstruments/ti-amazon-sidewalk-sample-iot-app). It has required steps for:
+
+1. AWS account and credentials setup
+2. Amazon Sidewalk webapp deployment
+3. Amazon Sidewalk device provisioning
+
+Note that if you plan on using CCS to build the projects, you only need to setup your AWS account and credentials. This is because CCS automatically handles both Sidewalk device provisioning and Sidewalk webapp deployment for you.
+
 ## Build SDK Libraries
 SDK libraries must exist before building any examples. To build SDK libraries from the simplelink-sidewalk-examples directory:
 
@@ -69,7 +78,7 @@ linking sid_demo.out<br>
 building sid_demo.hex<br>
 
 
-The final output from the build should be a sid_demo.out and sid_demo.hex 
+The final output from the build should be a `sid_demo.out` and `sid_demo.hex`.  
 
 
 
@@ -108,9 +117,9 @@ Press Browse, then Open.  Available examples will show up in the dialog box.  Se
 <img src="select_ccsproject.png"  width="300" height="400">
 
 
-When building with CCS there is a post build step defined in the project file that requires AWS credentials.  These credentials should be set in /home/username/sidewalk/sid_demo_LP_CC1352P7_1_freertos_gcc/aws_credentials/aws_credentials.yaml.  
+When building with CCS there are post build steps defined in the project file that require AWS credentials. These credentials can either be set globally, in `~/.aws/config`, or it could be set on a per project basis, in `/home/username/sidewalk/sid_demo_LP_CC1352P7_1_freertos_gcc/aws_credentials/aws_credentials.yaml`
 
-If the credentials are not set, the .out and .hex files will be created but the post build step will fail.  Please see https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html for information from AWS to setup credentials. 
+If the credentials are not set properly, the .out and .hex files will be created but the post build steps will fail.  Please see https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html for information from AWS to setup credentials. 
 
 ### Example Credentials Failure
 :<br>
@@ -122,9 +131,23 @@ If the credentials are not set, the .out and .hex files will be created but the 
 [INFO]   	Could not find AWS credentials. Either populate the credentials.yaml file provided to this script OR use one of the methods described in https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html
 makefile:261: recipe for target 'post-build' failed<br>
 
- 
+## Flashing Image into the Target Device
+If command line was used to build the project, the output should be `sid_demo.out` and `sid_demo.hex`. The `TI.bin` output from the Sidewalk device provisioning step must be loaded along with `sid_demo.out` or `sid_demo.hex` at location `0xAE000`
 
-  
+<img src="uniflash_1.png"  width="600" height="170">
+
+<br>
+
+If CCS was used to build the project, there should be three outputs:
+1. `sid_demo_<target_device_name>_freertos_gcc.out`
+2. `sid_demo_<target_device_name>_freertos_gcc.hex`
+3. `sid_demo_<target_device_name>_freertos_gcc_merged.hex`
+
+The `sid_demo_<target_device_name>_freertos_gcc_merged.hex` is an image that has the main image, `sid_demo_<target_device_name>_freertos_gcc.hex`, and `TI.bin` merged together automatically by CCS. You can load this single image normally.
+
+<img src="uniflash_2.png"  width="600" height="170">
+
+<br>
 
 ## Resources
 
