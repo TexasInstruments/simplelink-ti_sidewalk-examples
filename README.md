@@ -35,7 +35,7 @@ By default, TICLANG and GCC toolchains are enabled.  If a toolchain is unnecessa
 
 `GCC_ARMCOMPILER`        ?= /home/username/ti/ccs1230/ccs/tools/compiler/9.2019.q4.major-0
 
-Edit **imports.make** and update all of the above tool location variables to reflect the paths on your build system.
+Edit **imports.mak** and update all of the above tool location variables to reflect the paths on your build system.
 
 ## Amazon Web Services (AWS) Account and Sample WebApp Setup
 To test the examples, you need to follow the instructions outlined in the following Github page: [Amazon Sidewalk Sample IoT App](https://github.com/TexasInstruments/ti-amazon-sidewalk-sample-iot-app). It has required steps for:
