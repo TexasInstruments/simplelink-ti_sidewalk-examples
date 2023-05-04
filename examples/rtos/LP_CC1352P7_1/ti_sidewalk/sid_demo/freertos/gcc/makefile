@@ -17,9 +17,9 @@ NAME = sid_demo
 
 CFLAGS = -I../.. \
     -I. \
-    @${CURDIR}/syscfg/ti_ble_app_config.opt \
-    @${CURDIR}/syscfg/ti_build_config.opt \
-    @${CURDIR}/syscfg/ti_sidewalk.opt \
+    @${CURDIR}/ti_ble_app_config.opt \
+    @${CURDIR}/ti_build_config.opt \
+    @${CURDIR}/ti_sidewalk.opt \
     "@$(COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR)/source/ti/ble5stack/config/build_components.opt" \
     "@$(COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR)/source/ti/ble5stack/config/factory_config.opt" \
     -DUNIFIED_ASL_SUPPORT=1 \
