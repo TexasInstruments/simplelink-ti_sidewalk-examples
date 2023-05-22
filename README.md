@@ -59,11 +59,10 @@ versions for each SDK if needed.
 ## Build Examples
 
 After building the SDK libraries, you can build the ti_sidewalk examples.  The
-examples support a few ways to build:
+examples support two ways to build:
 
 * [Command line makefile](#build-examples-from-command-line)
 * [CCS IDE](#build-examples-from-ccs)
-* [IAR IDE](#build-examples-from-iar)
 
 ### Build Examples From Command Line
 
