@@ -1,41 +1,36 @@
-# SimpleLink Proprietary RF (Prop RF) Examples
+# SimpleLink ti_sidewalk Examples
 
-This repository contains the prop_rf examples for TI devices supported by the
-SimpleLink Low Power F2 and F3 SDKs.  To learn which devices are supported by
-each SDK, refer to the [SDK Device Association section](#sdk-association).
+This repository contains the ti_sidewalk examples for TI devices supported by the
+SimpleLink Low Power F2 SDK.  To learn which devices are supported by
+the SDK, refer to the [SDK Device Association section](#sdk-association).
 
 ## Repository Layout
 
-The **examples/** directory contains the same prop_rf examples provided in those
-SDKs, in the same directory structure.
+The **examples/** directory contains the same ti_sidewalk examples provided in the
+SDK, in the same directory structure.
 
-The SimpleLink Low Power F2 and F3 SDKs are provided as [Git
-submodules](https://www.git-scm.com/docs/gitsubmodules) in their respective
-subdirectories.  If you're only interested in devices supported by the F3 SDK,
-you will only need to initialize and update the F3 SDK submodule.
+The SimpleLink Low Power F2 SDK is provided as [Git
+submodules](https://www.git-scm.com/docs/gitsubmodules) in the cc13xx_cc26xx_sdk
+subdirectory.  
 
 As a quick reference, you can initialize and update a single Git submodule in
 one step like this:
 
 ```bash
 # To initialize and update the F2 SDK
-.../simplelink-prop_rf-examples$ git submodule update --init cc13xx_cc26xx_sdk
-
-# To initialize and update the F3 SDK
-.../simplelink-prop_rf-examples$ git submodule update --init simplelink-lowpower-f3-sdk
+.../simplelink-ti_sidewalk-examples$ git submodule update --init cc13xx_cc26xx_sdk
 ```
 
-Alternatively you can initialize/update _all_ submodules when cloning a repo
+Alternatively you can clone and initialize/update _all_ submodules when cloning a repo
 with `git clone --recurse-submodules {repo-ref}`.  See Git documentation for
 details.
 
-Once initialized and updated, you can refer to each SDK's README.md and Release
+Once initialized and updated, you can refer to the SDK's README.md and Release
 Notes for details on how to download its dependencies, and build its libraries.
 
 * [SimpleLink Low Power F2 SDK
   README](https://github.com/TexasInstruments/cc13xx_cc26xx_sdk/blob/main/README.md)
-* [SimpleLink Low Power F3 SDK
-  README](https://github.com/TexasInstruments/simplelink-lowpower-f3-sdk/blob/main/README.md)
+
 
 > Note, the links above are to online copies of the latest SDK READMEs.  They
 > are useful for online readers, but be sure to consult the SDK submodule's
@@ -63,7 +58,7 @@ versions for each SDK if needed.
 
 ## Build Examples
 
-After building the SDK libraries, you can build the prop_rf examples.  The
+After building the SDK libraries, you can build the ti_sidewalk examples.  The
 examples support a few ways to build:
 
 * [Command line makefile](#build-examples-from-command-line)
@@ -74,14 +69,14 @@ examples support a few ways to build:
 
 Remember, before building the examples, you must build the SDK libraries!
 
-To build a prop_rf example from the command line using [GNU
+To build a ti_sidewalk example from the command line using [GNU
 make](https://www.gnu.org/software/make/manual/make.html), change into the
 appropriate example's directory (e.g.
-**{rtos}/{board}/prop_rf/{example}/{rtos}/{toolchain}**), then run `make`.
+**{rtos}/{board}/ti_sidewalk/{example}/{rtos}/{toolchain}**), then run `make`.
 
 ```bash
-.../simplelink-prop_rf-examples$ cd examples/rtos/CC1352R1_LAUNCHXL/prop_rf/rfCarrierWave/freertos/ticlang/
-.../ticlang$ make
+.../simplelink-ti_sidewalk-examples$ cd examples/rtos/LP_CC1352P7_1/ti_sidewalk/sid_demo/freertos/gcc/
+.../gcc$ make
 ```
 
 Note, you can also clean the example with `make clean`.
@@ -125,15 +120,6 @@ Now you can import an example!
 
 ![Import CCS Projects Dialog](images/select_ccsproject.png)
 
-### Build Examples from IAR
-
-Remember, before building the examples, you must build the SDK libraries!
-
-Follow the instructions in your respective SDK's Quick Start Guide:
-
-* [SimpleLink Low Power F2 SDK Quick Start Guide](https://dev.ti.com/tirex/explore/node?node=A__AC7UNBWx3i6iMAUzzhqKwA__com.ti.SIMPLELINK_CC13XX_CC26XX_SDK__BSEc4rl__LATEST)
-* [SimpleLink Low Power F3 SDK Quick Start Guide](https://dev.ti.com/tirex/explore/node?node=A__AC7UNBWx3i6iMAUzzhqKwA__com.ti.SIMPLELINK_LOWPOWER_F3_SDK__58mgN04__LATEST)
-
 ## Troubleshooting
 
 When building on *nix platform (Linux/Mac) the library build may fail with an
@@ -156,4 +142,3 @@ $ export `PATH`=/Users/username/ti/gcc_arm_none_eabi_9_2_1/arm-none-eabi/bin:$PA
 Click the links below to find the devices supported by each SDK.
 
 * [SimpleLink Low Power F2 SDK devices](images/simplelink_cc13xx_cc26xx_sdk.md)
-* [SimpleLink Low Power F3 SDK devices](images/simplelink_lowpower_f3_sdk.md)
