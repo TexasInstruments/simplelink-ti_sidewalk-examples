@@ -166,6 +166,20 @@ The `sid_demo_<target_device_name>_freertos_gcc_merged.hex` is an image that has
 
 <br>
 
+## Known Issues
+
+In this release, make file based builds only support the bash shell. Other shells will be added in a future release.
+
+Windows make-based builds will fail due to a path length limitation. With an error similar to the following:
+
+```"unclosed quotes" error:
+ 
+/usr/bin/sh: -c: line 0: unexpected EOF while looking for matching `"'
+/usr/bin/sh: -c: line 1: syntax error: unexpected end of file
+makefile:265: recipe for target 'main.obj' failed
+gmake: *** [main.obj] Error 1
+```
+
 ## Troubleshooting
 
 When building on *nix platform (Linux/Mac) the library build may fail with an
