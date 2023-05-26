@@ -91,6 +91,8 @@ appropriate example's directory (e.g.
 
 Note, you can also clean the example with `make clean`.
 
+Note that when building from command line using makefiles, sidewalk webapp deployment and sidewalk device provisioning need to be done manually. Refer to [Amazon Web Services (AWS) Account and Sample WebApp Setup](#amazon-web-services-aws-account-and-sample-webapp-setup) section for information on how to do this.
+
 ### Build Examples From CCS
 
 Remember, before building the examples, you must build the SDK libraries!
