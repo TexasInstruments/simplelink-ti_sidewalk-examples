@@ -80,7 +80,7 @@ building sid_demo.hex<br>
 
 The final output from the build should be a `sid_demo.out` and `sid_demo.hex`.  
 
-
+When building from command line using makefiles, sidewalk webapp deployment and sidewalk device provisioning need to be done manually. Refer to [Amazon Web Services (AWS) Account and Sample WebApp Setup](#amazon-web-services-aws-account-and-sample-webapp-setup) section for information on how to do this.
 
 ## Build Examples From CCS
 
