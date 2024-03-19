@@ -14,7 +14,7 @@
         name="sid_demo_LP_CC1352P7_1_freertos_gcc"
         configurations="Debug"
         toolChain="GNU"
-        cgtVersion="GNU_9.2.1"
+        cgtVersion="GNU_12.3.1"
         connection="TIXDS110_Connection.xml"
         device="Cortex M.CC1352P7"
         ignoreDefaultDeviceSettings="true"
@@ -23,9 +23,6 @@
         compilerBuildOptions="
             -I${PROJECT_ROOT}
             -I${PROJECT_ROOT}/${ConfigName}
-            @${PROJECT_LOC}/${ConfigName}/syscfg/ti_ble_app_config.opt
-            @${PROJECT_LOC}/${ConfigName}/syscfg/ti_build_config.opt
-            @${PROJECT_LOC}/${ConfigName}/syscfg/ti_sidewalk.opt
             @${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/source/ti/ble5stack/config/build_components.opt
             @${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/source/ti/ble5stack/config/factory_config.opt
             -DUNIFIED_ASL_SUPPORT=1
@@ -92,8 +89,6 @@
             -fno-builtin
             -fno-strict-aliasing
             -fshort-enums
-            -fstack-protector
-            -fstack-protector-strong
             -mabi=aapcs
             -I${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/source/ti/ti_sidewalk/apps/common/sal/ti/sid_pal
             -I${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/source/ti/ti_sidewalk/apps/common/sal/ti/sid_pal/cc13xx_radio/include
@@ -194,18 +189,17 @@
             -I${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/source/third_party/sidewalk/dpk_impl/sid_mcu/common/sid_protocol/utils/include
             -I${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/source/third_party/sidewalk/apps/common/sidewalk_sdk/sal/common/sid_parsers/sid_demo_parser/include
             -I${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/source/third_party/sidewalk/apps/common/sidewalk_sdk/sal/common/sid_parsers/sid_parser_utils/include
-            -include sid_protocol_opts.h
+            -include ${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/source/third_party/sidewalk/dpk_impl/sid_mcu/common/sid_protocol/mac/src/include/sid_protocol_opts.h
             -DBUILD_900MHZ_SUPPORT=1
             -I${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/source/ti/ti_sidewalk/apps/ti/sid_demo/app_source/cc1352p7/sysconfig
             -I${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/source
-            -DDeviceFamily_CC13X2X7
             -Os
             -DMANUFACTURE_FLASH_START=0xAE000
             -I${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/source/ti/posix/gcc
             -I${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/kernel/freertos
             -I${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/kernel/freertos/dpl
-            -I${FREERTOS_INSTALL_DIR}/FreeRTOS/Source/include
-            -I${FREERTOS_INSTALL_DIR}/FreeRTOS/Source/portable/GCC/ARM_CM4F
+            -I${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/source/third_party/freertos/include
+            -I${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/source/third_party/freertos/portable/GCC/ARM_CM4F
             -mcpu=cortex-m4
             -march=armv7e-m
             -mthumb
@@ -237,7 +231,6 @@
             -L${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/source
             -L${PROJECT_BUILD_DIR}/syscfg
             -lti_utils_build_linker.cmd.genlibs
-            -l:ti/devices/cc13x2x7_cc26x2x7/driverlib/bin/gcc/driverlib.lib
             -march=armv7e-m
             -mthumb
             -mfloat-abi=hard
@@ -253,13 +246,12 @@
             --specs=nano.specs
         "
         postBuildStep="
-            ${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/tools/sidewalk/web_app/bin/deploy_stack -c ${PROJECT_ROOT}/${ConfigName}/syscfg/ti_sidewalk_config.yaml --credentials ${PROJECT_ROOT}/aws_credentials/aws_credentials.yaml;
-            ${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/tools/sidewalk/generate_prototype/bin/generate_prototype -c ${PROJECT_ROOT}/${ConfigName}/syscfg/ti_sidewalk_config.yaml -o ${PROJECT_ROOT}/${ConfigName}/SidewalkDevice --credentials ${PROJECT_ROOT}/aws_credentials/aws_credentials.yaml;
-            ${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/tools/sidewalk/merge_bin_with_hex/bin/merge_bin_with_hex ${PROJECT_ROOT}/${ConfigName}/${ProjName}.hex ${PROJECT_ROOT}/${ConfigName}/SidewalkDevice/TI.bin 0xAE000 ${PROJECT_ROOT}/${ConfigName}/${ProjName}_merged.hex;
+            ${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/tools/sidewalk/web_app/bin/deploy_stack -c ${BuildDirectory}/syscfg/ti_sidewalk_config.yaml --credentials ${PROJECT_ROOT}/aws_credentials/aws_credentials.yaml;;
+            ${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/tools/sidewalk/generate_prototype/bin/generate_prototype -c ${BuildDirectory}/syscfg/ti_sidewalk_config.yaml -o ${BuildDirectory}/SidewalkDevice --credentials ${PROJECT_ROOT}/aws_credentials/aws_credentials.yaml;;
+            ${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/tools/sidewalk/merge_bin_with_hex/bin/merge_bin_with_hex ${BuildDirectory}/${BuildArtifactFileBaseName}.hex ${BuildDirectory}/SidewalkDevice/TI.bin 0xAE000 ${BuildDirectory}/${BuildArtifactFileBaseName}_merged.hex;
         "
         enableHexTool="true"
         hexBuildOptions="-O ihex --remove-section .vtable --remove-section .dmaSpi0RxControlTableEntry --remove-section .dmaSpi0TxControlTableEntry --remove-section .dmaSpi1RxControlTableEntry --remove-section .dmaSpi1TxControlTableEntry --remove-section .dmaSpi0RxAltControlTableEntry --remove-section .dmaSpi0TxAltControlTableEntry --remove-section .dmaSpi1RxAltControlTableEntry --remove-section .dmaSpi1TxAltControlTableEntry --gap-fill 0xff"
-        enableSysConfigTool="true"
         sysConfigBuildOptions="
             --compiler gcc
         "
@@ -371,9 +363,13 @@
         </file>
         <file path="../../freertos/sid_demo.syscfg" openOnCreation="false" excludeFromBuild="false" action="copy">
         </file>
+        <file path="../../aws_credentials/aws_credentials.yaml" openOnCreation="true" excludeFromBuild="false" action="copy" targetDirectory="aws_credentials">
+        </file>
         <file path="${COM_TI_SIMPLELINK_CC13XX_CC26XX_SDK_INSTALL_DIR}/source/ti/boards/LP_CC1352P7_1/Board.html" openOnCreation="false" excludeFromBuild="false" action="link">
         </file>
         <file path="../../freertos/gcc/cc13x2x7_cc26x2x7_freertos.lds" openOnCreation="false" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../../source/ti/common/sys/syscalls_stub.c" openOnCreation="false" excludeFromBuild="false" action="copy" targetDirectory="source/ti/common/sys">
         </file>
     </project>
 </projectSpec>
